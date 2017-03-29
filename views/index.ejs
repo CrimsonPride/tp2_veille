@@ -3,36 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-<title>Épreuve finale volet II - Node.js, Express, MongoDB, EJS</title>
+<title>YP II - Node.js, Express, MongoDB, EJS</title>
 </head>
 <body>
   <div class='global'>
   	  <header>
-  	  	<h1>Épreuve finale volet II - Programmation et veille technologique</h1>
+  	  	<h1>TP II - Programmation et veille technologique</h1>
   	  	<h2>Node.js, Express, MongoDB, EJS</h2>
-  	  	<nav>
-
-  	  		<a href="fichier">1-Fichier</a>
-  	  		<a href="provinces">2-Provinces</a>
-  	  		<a href="collection">3-Collection</a>
-  	  		<a href="ajouter">4-Ajouter un document</a>
-  	  		<a href="detruire">5-Détruire</a>
-  	  		<a href="plusieurs">6-Ajouter plusieurs</a>
-  	  	<nav>
   	  </header>
   	  <main>
+          
         <table>
-            <% for(var i=0; i < provinces.length; i++) { %>
+            <caption>Carnet d'adresse 6</caption>
+            <% for(var i=0; i < carnet.length; i++) { %>
             <tr>
-                <td><%= provinces[i].code %></td>
-                <td><%= provinces[i].nom %></td>
-                <td><%= provinces[i].capital %></td>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Téléphone</th>
+                <th>_id</th>
+                <th>&nbsp;</th>
+                <th><a href="Ajouter">Ajouter</a></th>
+            </tr>
+            <tr>
+                <td><%= carnet[i].nom %></td>
+                <td><%= carnet[i].prenom %></td>
+                <td><%= carnet[i].telephone %></td>
+                <td><%= carnet[i]._id %></td>
             </tr>
             <% } %>
         </table>
 	  </main>
 	  <footer>
-	  <p>Epreuve finale volet II - Programmation et veille technologique - TIM - Collège de Maisonneuve</p>
+	  <p>TP II - Programmation et veille technologique - TIM - Collège de Maisonneuve</p>
 	  </footer>
   </div>
 </body>
