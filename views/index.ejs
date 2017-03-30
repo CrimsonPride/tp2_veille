@@ -15,7 +15,7 @@
           
         <table>
             <caption>Carnet d'adresse 6</caption>
-            <% for(var i=0; i < carnet.length; i++) { %>
+            
             <tr>
                 <th>Nom</th>
                 <th>Prenom</th>
@@ -24,11 +24,14 @@
                 <th>&nbsp;</th>
                 <th><a href="Ajouter">Ajouter</a></th>
             </tr>
+            <% for(var i=0; i < carnet.length; i++) { %>
             <tr>
                 <td><%= carnet[i].nom %></td>
                 <td><%= carnet[i].prenom %></td>
                 <td><%= carnet[i].telephone %></td>
                 <td><%= carnet[i]._id %></td>
+                <td><a href="#">Update</a></td>
+                <td><a href="#">Supprimer</a></td>
             </tr>
             <% } %>
         </table>

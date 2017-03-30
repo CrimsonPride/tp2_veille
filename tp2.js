@@ -26,7 +26,7 @@ app.get('/', function (req, res) {
        if (err) return console.log(err)
     // renders index.ejs
     // affiche le contenu de la BD
-    res.render('index.ejs', {provinces: resultat})
+    res.render('index.ejs', {carnet: resultat})
 
     }) 
     
@@ -42,7 +42,7 @@ app.get('/provinces', function (req, res) {
             return 
         }
         //Afiche le contenu de la BD
-        res.render("index.ejs",{provinces: JSON.parse(data)})
+        res.render("index.ejs",{carnet: JSON.parse(data)})
     }); 
     
     
@@ -52,11 +52,11 @@ app.get('/provinces', function (req, res) {
 app.get('/collection',  (req, res) => {
    console.log('la route route get / = ' + req.url)
  
-    var cursor = db.collection('provinces').find().toArray(function(err, resultat){
+    var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
        if (err) return console.log(err)
     // renders index.ejs
     // affiche le contenu de la BD
-    res.render('index.ejs', {provinces: resultat})
+    res.render('index.ejs', {carnet: resultat})
 
     }) 
 })
@@ -66,9 +66,9 @@ app.get('/Ajouter', function (req, res) {
     //Génère un nombre aléatoire pour la capitale
     var nb = (Math.random() *100 );
     //Ajoute une province au à la collection Provinces
-    db.collection('provinces').insert(
-        {"code": "QC",
-         "nom": "Québec",
+    db.collection('carnet_6').insert(
+        {"nom": "Jang",
+         "prenom": "Loli",
          "capital": nb}
     )
     //Renvoi à Collection
