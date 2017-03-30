@@ -21,25 +21,17 @@ MongoClient.connect('mongodb://127.0.0.1:27017/carnet_adresse', (err, database) 
 
 
 app.get('/', function (req, res) {
-   //console.log('la route route get / = ' + req.url)
-   //Affiche la vue par défaut
-    fs.readFile('views/index.ejs', function (err, data) {
-   if (err) return console.error(err);
-   res.send(data.toString());
-    });
+    
+    var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
+       if (err) return console.log(err)
+    // renders index.ejs
+    // affiche le contenu de la BD
+    res.render('index.ejs', {provinces: resultat})
+
+    }) 
     
 })
 
-app.get('/fichier', function (req, res) {
-   //console.log("je suis fichier");
-   ////Lis le fichier collection_provinces.json
-    fs.readFile("public/text/collection_provinces.json", 'utf8', function (err, data) {
-       res.send(data);
-       //console.log(data);
-    
-   });
-
-})
 
 app.get('/provinces', function (req, res) {
     //console.log("je suis provinces");
@@ -67,11 +59,9 @@ app.get('/collection',  (req, res) => {
     res.render('index.ejs', {provinces: resultat})
 
     }) 
-    
-
 })
 
-app.get('/ajouter', function (req, res) {
+app.get('/Ajouter', function (req, res) {
     //console.log("je suis ajouter");
     //Génère un nombre aléatoire pour la capitale
     var nb = (Math.random() *100 );
