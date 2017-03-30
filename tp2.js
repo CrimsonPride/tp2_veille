@@ -34,129 +34,44 @@ app.get('/', function (req, res) {
 })
 
 
-app.get('/provinces', function (req, res) {
-    //console.log("je suis provinces");
-    //Lis le fichier collection_provinces.json et le mets en tableau
-    fs.readFile('public/text/collection_provinces.json', 'utf8', function (err, data){
-        if(err){
-            console.log("erreur de lecture");
-            return 
-        }
-        //Afiche le contenu de la BD
-        res.render("index.ejs",{carnet: JSON.parse(data)})
-    }); 
-    
-    
-    
-})
-
-app.get('/collection',  (req, res) => {
-   console.log('la route route get / = ' + req.url)
- 
-    var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
-       if (err) return console.log(err)
-    // renders index.ejs
-    // affiche le contenu de la BD
-    res.render('index.ejs', {carnet: resultat})
-
-    }) 
-})
-
 app.get('/Ajouter', function (req, res) {
     //console.log("je suis ajouter");
     //Génère un nombre aléatoire pour la capitale
-    var nb = (Math.random() *100 );
+   
     //Ajoute une province au à la collection Provinces
     db.collection('carnet_6').insert(
-        {"nom": "Jang",
-         "prenom": "Loli",
-         "capital": nb}
+        {"nom": "",
+         "prenom": "",
+         "telephone":""}
     )
     //Renvoi à Collection
-    res.redirect('/collection')
+    res.redirect('/')
 })
 
-app.get('/detruire', function (req, res) {
-    //console.log("je suis plusieurs");
-    //Supprime la base de donnée
-    db.dropDatabase()
-    //Renvoi à Collection
-    res.redirect('/collection')
+app.get('/Detruire/:_id',  (req, res) => {
+
+    db.collection('carnet_6').findOneAndDelete({_id:ObjectId(req.params._id)}, (err, resultat) => {
+
+    if(err) return res.send(500,err)
+    var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
+       if (err) return console.log(err)
+    // renders index.ejs
+    // affiche le contenu de la base de donnée
+    res.redirect('/');
+    }) 
+  }) 
 })
 
-app.get('/plusieurs', function (req, res) {
-    //console.log("je suis plusieurs");
-    //Rajoute un lot de données
-    db.collection("provinces").insertMany( [	
-			{
-			 "code": "NF" ,
-			 "nom" : "Terre-Neuve",
-			 "capital" : "St-john"
-			},
-			{
-			  "code": "IPE",
-			  "nom" : "Ile du Prince-Édouard ",
-			  "capital" : "Charlottetown"
-			},
-			{
-			  "code": "NS",
-			  "nom" : "Nouvelle Écosse",
-			  "capital" : "Halifax"
-			},			
-			{
-			  "code": "NB",
-			  "nom" : "Nouveau-Brunswick",
-			  "capital" : "Fredericton"
-			},
-			{
-			"code": "QC",  
-			"nom" : "Québec",
-			"capital" : "Québec"
-			},
-	 		{
-			"code": "ON", 
-			"nom" : "Ontario",
-			"capital" : "Toronto"
-			},
-	 		{
-			"code": "MA", 
-			"nom" : "Manitoba",
-			"capital" : "Winipeg"
-			},
-	 		{
-			"code": "SK", 
-			"nom" : "Saskatshewan",
-			"capital" : "Regina"
-			},
-	 		{
-			"code": "AL", 
-			"nom" : "Alberta",
-			"capital" : "Edmonton"
-			},
-			{
-			  "code": "BC",
-			  "nom" : "Colombie Britannique",
-			  "capital" : "Victoria"
-			},
-			{
-			  "code": "NU",
-			  "nom" : "Nunavut",
-			  "capital" : "Igaluit"
-			},
-			{
-			  "code": "YT",
-			  "nom" : "Yukon",
-			  "capital" : "Whitehorse"
-			},
-			{
-			  "code": "NT",
-			  "nom" : "Territoire du Nord-Ouest",
-			  "capital" : "Yellowknife"
-			}
+app.post('/Modifier',  (req, res) => {
 
-		]	
-    )
-    
-    //Renvoi à Collection
-    res.redirect('/collection')
+    db.collection('carnet_6').update({_id:ObjectId(req.body._id)},{$set:{'nom':req.body.nom, 'prenom':req.body.prenom, 'telephone':req.body.telephone}}, (err, resultat) => {
+
+    if(err) return res.send(500,err)
+    var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
+       if (err) return console.log(err)
+    // renders index.ejs
+    // affiche le contenu de la base de donnée
+    res.redirect('/');
+    }) 
+  }) 
 })
