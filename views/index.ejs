@@ -27,12 +27,12 @@
             </tr>
             <% for(var i=0; i < carnet.length; i++) { %>
             <tr>
-                <td ><%= carnet[i].nom %></td>
-                <td><%= carnet[i].prenom %></td>
-                <td><%= carnet[i].telephone %></td>
+                <td contenteditable="true"><%= carnet[i].nom %></td>
+                <td contenteditable="true"><%= carnet[i].prenom %></td>
+                <td contenteditable="true"><%= carnet[i].telephone %></td>
                 <td><%= carnet[i]._id %></td>
-                <td><a href="#">Update</a></td>
-                <td><a href="#">Supprimer</a></td>
+                <td><a href="Modifier">Update</a></td>
+                <td><a href="Detruire/:_id">Supprimer</a></td>
             </tr>
             <% } %>
         </table>
