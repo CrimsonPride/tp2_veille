@@ -11,7 +11,7 @@ app.use(bodyParser.json())  // pour traiter les données JSON
 
 /**************FONCTIONS**********/
 
-MongoClient.connect('mongodb://127.0.0.1:27017/carnet_adresse', (err, database) => {
+MongoClient.connect('mongodb://127.0.0.1:27017/carnet_6', (err, database) => {
   if (err) return console.log(err)
   db = database
   app.listen(8082, () => {
@@ -21,11 +21,12 @@ MongoClient.connect('mongodb://127.0.0.1:27017/carnet_adresse', (err, database) 
 
 
 app.get('/', function (req, res) {
-    
+    console.log("dans fonction");
     var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
        if (err) return console.log(err)
     // renders index.ejs
     // affiche le contenu de la BD
+    console.log("dans db");
     res.render('index.ejs', {carnet: resultat})
 
     }) 
