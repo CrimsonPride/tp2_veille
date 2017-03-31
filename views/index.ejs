@@ -18,12 +18,13 @@
         <table>
             <caption>Carnet d'adresse 6</caption>
             <tr>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Téléphone</th>
-                <th>_id</th>
+                <th><a href="TNom">Nom</a></th>
+                <th><a href="TPrenom">Prenom</a></th>
+                <th><a href="TTel">Téléphone</a></th>
+                <th><a href="Tid">_id</a></th>
                 <th>&nbsp;</th>
-                <th><a href="Ajouter">Ajouter</a></th>
+                <th><a href="Ajouter"><i class="fa fa-plus-square" aria-hidden="true"></i>
+</a></th>
             </tr>
             <% for(var i=0; i < carnet.length; i++) { %>
             <tr>
@@ -31,8 +32,10 @@
                 <td contenteditable="true"><%= carnet[i].prenom %></td>
                 <td contenteditable="true"><%= carnet[i].telephone %></td>
                 <td><%= carnet[i]._id %></td>
-                <td><a href="Modifier">Update</a></td>
-                <td><a href="Detruire/:_id">Supprimer</a></td>
+                <td><a href="Modifier"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+</a></td>
+                <td><a href="Detruire/:_id"><i class="fa fa-trash" aria-hidden="true"></i>
+</a></td>
             </tr>
             <% } %>
         </table>
