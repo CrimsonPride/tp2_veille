@@ -50,7 +50,7 @@ app.get('/Ajouter', function (req, res) {
 
 app.get('/Detruire/:_id',  (req, res) => {
 
-    db.collection('carnet_6').findOneAndDelete({_id:ObjectId(req.params._id)}, (err, resultat) => {
+    db.collection('carnet_6').findOneAndDelete({nom:"Lauzon"}, (err, resultat) => {
 
     if(err) return res.send(500,err)
     var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
@@ -64,7 +64,7 @@ app.get('/Detruire/:_id',  (req, res) => {
 
 app.post('/Modifier',  (req, res) => {
 
-    db.collection('carnet_6').update({_id:ObjectId(req.body._id)},{$set:{'nom':req.body.nom, 'prenom':req.body.prenom, 'telephone':req.body.telephone}}, (err, resultat) => {
+    db.collection('carnet_6').update({_id:req.body._id},{$set:{'nom':req.body.nom, 'prenom':req.body.prenom, 'telephone':req.body.telephone}}, (err, resultat) => {
 
     if(err) return res.send(500,err)
     var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
@@ -75,3 +75,12 @@ app.post('/Modifier',  (req, res) => {
     }) 
   }) 
 })
+
+app.get('/TNom',  (req, res) => {
+    db.collection('carnet_6').find( { $query: {}, $orderby: { nom: "A" } } )
+    // renders index.ejs
+    // affiche le contenu de la base de donnée
+    res.redirect('/');
+    
+}) 
+  
