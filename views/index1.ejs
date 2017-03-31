@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+<script src="https://use.fontawesome.com/dad29a7320.js"></script>
+
+<title>TP II - Node.js, Express, MongoDB, EJS</title>
+</head>
+<body>
+  <div class='global'>
+  	  <header>
+  	  	<h1>TP II - Programmation et veille technologique</h1>
+  	  	<h2>Node.js, Express, MongoDB, EJS</h2>
+  	  </header>
+  	  <main>
+          <ul>
+            <li>
+                <form action="/Enregistrer" method="POST">
+                    <input type="text" name="nom" value="<%= carnet[id].nom %>">
+                    <input type="text" name="prenom" value="<%= carnet[id].prenom %>">
+                    <input type="text" name="telephone" value="<%= carnet[id].telephone %>">
+                    <input type="hidden" name="_id" value="<%= carnet[id]._id %>">
+                    <button type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></buttom>
+                </form>
+            </li>
+          </ul>
+	  </main>
+	  <footer>
+	  <p>TP II - Programmation et veille technologique - TIM - Collège de Maisonneuve</p>
+	  </footer>
+  </div>
+</body>
+</html>
