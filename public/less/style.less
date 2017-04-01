@@ -1,10 +1,11 @@
-@txtWidth:320px;
-@numWidth:90px;
+@txtWidth:130px;
+@txtIdWidth:200px;
+@numWidth:70px;
 @couleur1: #FBEFFB;
 @couleur2: #F5A9BC;
 @fontSize1: 28px;
 @fontSize2: 14px;
-@fontSize3: 19px;
+@fontSize3: 15px;
 
 ::selection {
     background:@couleur1;    
@@ -48,25 +49,29 @@ footer {
 	width : 900px;
 	border : 2px dotted #aaa;
 }
-
+.tableau{
+    width: 100%;
+}
 .table-row {
   display: flex;          
   flex-direction: row;     
   flex-grow: 0;            
   flex-wrap: wrap;         
   width: 100%;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 .text {
   flex-grow: 1;     
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  padding-right: 20px;
+  
 }
 .text {
   width: @txtWidth;
+}
+.textId {
+  width: @txtIdWidth;
+  padding-right:5px;
 }
 .num {
   width: @numWidth;
@@ -84,5 +89,5 @@ body {
   font-weight: bold;
   padding-top: 8px;
   padding-bottom: 8px;
-  color: white;
+  color: black;
 }

@@ -80,27 +80,14 @@ app.post('/Modifier',  (req, res,next) => {
   }) 
 })
 
-//Triage des documents par nom lorsque l'on clique sur le th nom
+
+
+//Triage des documents par nom lorsque l'on clique sur le nom
 var sensNom = 1;
 app.get('/TNom',  (req, res, next) => {
     var cursor =
-    db.collection('carnet_6').find().sort({ nom:sensNom }.toA, (err, resultat) => {
-
-if (err) return console.log(err)
-        res.render('index.ejs', {
-            carnet: resultat
-        })
-        sensNom = -sensNom;
-    })
-});  
-
-//Triage des documents par nom lorsque l'on clique sur le th nom
-var sensNom = 1;
-app.get('/TNom',  (req, res, next) => {
-    var cursor =
-    db.collection('carnet_6').find().sort({ nom:sensNom }.toA, (err, resultat) => {
-
-if (err) return console.log(err)
+    db.collection('carnet_6').find().sort({ nom:sensNom }.toArray(function(err, resultat) {
+        if (err) return console.log(err)
         res.render('index.ejs', {
             carnet: resultat
         })
@@ -108,13 +95,12 @@ if (err) return console.log(err)
     })
 }); 
 
-//Triage des documents par nom lorsque l'on clique sur le th prenom
+//Triage des documents par nom lorsque l'on clique sur le prenom
 var sensPrenom = 1;
 app.get('/TPrenom',  (req, res, next) => {
     var cursor =
-    db.collection('carnet_6').find().sort({ prenom:sensPrenom }.toA, (err, resultat) => {
-
-if (err) return console.log(err)
+    db.collection('carnet_6').find().sort({ prenom:sensPrenom }.toArray(function(err, resultat) {
+        if (err) return console.log(err)
         res.render('index.ejs', {
             carnet: resultat
         })
@@ -122,13 +108,12 @@ if (err) return console.log(err)
     })
 }); 
 
-//Triage des documents par nom lorsque l'on clique sur le th telephone
+//Triage des documents par nom lorsque l'on clique sur le telephone
 var sensTel = 1;
 app.get('/TTel',  (req, res, next) => {
     var cursor =
-    db.collection('carnet_6').find().sort({ telephone:sensTel }.toA, (err, resultat) => {
-
-if (err) return console.log(err)
+    db.collection('carnet_6').find().sort({ telephone:sensTel }.toArray(function(err, resultat) {
+        if (err) return console.log(err)
         res.render('index.ejs', {
             carnet: resultat
         })

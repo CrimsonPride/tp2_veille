@@ -12,7 +12,7 @@
 <body>
   <div class='global'>
   	  <header>
-  	  	<h1>TP II - Programmation et veille technologique</h1>
+  	  	<h1>Patrick Lauzon - TP II - Programmation et veille technologique</h1>
   	  	<h2>Node.js, Express, MongoDB, EJS</h2>
   	  </header>
   	  <main>
@@ -23,15 +23,15 @@
               <div class="text"><a href="/TTel">Téléphone</a></div>
             <div class="text">_id</div>
             <div class="num"></div>
-              <i class="fa fa-plus-square" aria-hidden="true" onclick="ajouterElem()">
+              <i class="num fa fa-plus" aria-hidden="true" onclick="ajouterElem()"></i>
           </div>
-          <% for(var i=0; i<adresse.length; i++) {%>
+          <% for(var i=0; i<carnet.length; i++) {%>
           <div class="table-row">
-            <div class="text modifiable" value="" contentEditable="true"><%= adresse[i].nom %></div>
+            <div class="text modifiable" value="" contentEditable="true"><%= carnet[i].nom %></div>
             <div class="text modifiable" value="" contentEditable="true"><%= carnet[i].prenom %></div>
             <div class="text modifiable" value="" contentEditable="true"><%= carnet[i].telephone %></div>
-            <div class="text" value=""><%= carnet[i]._id %></div>
-            <i class="num fa fa-floppy" aria-hidden="true" onclick="verifierEnregistrement(this)"></i>
+            <div class="textId" value=""><%= carnet[i]._id %></div>
+            <i class="num fa fa-floppy-o" aria-hidden="true" onclick="verifEnreg(this)"></i>
             <i class="num fa fa-trash" aria-hidden="true" onclick="detruire(this)"></i>
 
           </div>
@@ -40,7 +40,7 @@
       
 	  </main>
 	  <footer>
-	  <p>TP II - Programmation et veille technologique - TIM - Collège de Maisonneuve</p>
+	  <p>Patrick Lauzon - TP II - Programmation et veille technologique - TIM - Collège de Maisonneuve</p>
 	  </footer>
   </div>
 </body>

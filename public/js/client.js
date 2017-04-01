@@ -1,12 +1,12 @@
 //Ajouter d'un élement vide pour ajouter un contact
 function ajouterElem() {
     document.getElementById('tableau').innerHTML += '<div class="table-row">' +
-        '<div class="text modifiable" value="" contentEditable="true"> </div>' +
         '<div class="text modifiable" value="" contentEditable="true"></div>' +
         '<div class="text modifiable" value="" contentEditable="true"></div>' +
-        '<div class="text" value=""></div>' +
+        '<div class="text modifiable" value="" contentEditable="true"></div>' +
+        '<div class="textId" value=""></div>' +
         '<i class="num fa fa-floppy-o" aria-hidden="true" onclick="verifEnreg(this)"></i>' +
-        '<i class="num fa fa-trash-o" aria-hidden="true" onclick="detruire(this)"></i>' +
+        '<i class="num fa fa-trash" aria-hidden="true" onclick="detruire(this)"></i>' +
         '</div>';
 }
 
@@ -81,7 +81,7 @@ function detruire(element) {
 }
 
 //Permet le ajax et donc de ne pas réafficher la page en entier
-function traiterRequest(element) {
+function traiterRequest(e) {
 
     console.log("xhr.readyState = " + xhr.readyState)
     console.log("xhr.status = " + xhr.status)
