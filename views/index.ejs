@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="css/style.css">
 <script src="https://use.fontawesome.com/dad29a7320.js"></script>
+<script src='js/client.js'></script>
+
 
 <title>TP II - Node.js, Express, MongoDB, EJS</title>
 </head>
@@ -14,30 +16,28 @@
   	  	<h2>Node.js, Express, MongoDB, EJS</h2>
   	  </header>
   	  <main>
-          
-        <table>
-            <caption>Carnet d'adresse 6</caption>
-            <tr>
-                <th><a href="TNom">Nom</a></th>
-                <th><a href="TPrenom">Prenom</a></th>
-                <th><a href="TTel">Téléphone</a></th>
-                <th><a href="Tid">_id</a></th>
-                <th>&nbsp;</th>
-                <th><a href="Afficher"><i class="fa fa-plus-square" aria-hidden="true"></i></a></th>
-            </tr>
-            <% for(var i=0; i < carnet.length; i++) { %>
-            <tr>
-                <td contenteditable="true"><%= carnet[i].nom %></td>
-                <td contenteditable="true"><%= carnet[i].prenom %></td>
-                <td contenteditable="true"><%= carnet[i].telephone %></td>
-                <td><%= carnet[i]._id %></td>
-                <td><a href="Modifier"><i class="fa fa-floppy-o" aria-hidden="true"></i>
-</a></td>
-                <td><a href="Detruire/<%= carnet[i]._id %>"><i class="fa fa-trash" aria-hidden="true"></i>
-</a></td>
-            </tr>
-            <% } %>
-        </table>
+      <div id="tableau" class="container-fluid" style="margin-top: 10px">
+          <div class="table-row header">
+            <div class="text"><a href="/TNom">Nom</a></div>
+              <div class="text"><a href="/TPrenom">Prénom</a></div>
+              <div class="text"><a href="/TTel">Téléphone</a></div>
+            <div class="text">_id</div>
+            <div class="num"></div>
+              <i class="fa fa-plus-square" aria-hidden="true" onclick="ajouterDoc()">
+          </div>
+          <% for(var i=0; i<adresse.length; i++) {%>
+          <div class="table-row">
+            <div class="text editable" value="" contentEditable="true"><%= adresse[i].nom %></div>
+            <div class="text editable" value="" contentEditable="true"><%= carnet[i].prenom %></div>
+            <div class="text editable" value="" contentEditable="true"><%= carnet[i].telephone %></div>
+            <div class="text" value=""><%= carnet[i]._id %></div>
+            <i class="num fa fa-floppy" aria-hidden="true" onclick="verifierEnregistrement(this)"></i>
+            <i class="num fa fa-trash" aria-hidden="true" onclick="detruire(this)"></i>
+
+          </div>
+          <% } %>
+        </div> 
+      
 	  </main>
 	  <footer>
 	  <p>TP II - Programmation et veille technologique - TIM - Collège de Maisonneuve</p>
