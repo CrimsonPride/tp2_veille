@@ -25,13 +25,13 @@
             <div class="num"></div>
               <i class="fa fa-plus-square" aria-hidden="true" onclick="ajouterDoc()">
           </div>
-          <% for(var i=0; i<carnet.length; i++) {%>
+          <% for(var i=0; i<adresse.length; i++) {%>
           <div class="table-row">
-            <div class="text editable" value="" contentEditable="true"><%= carnet[i].nom %></div>
+            <div class="text editable" value="" contentEditable="true"><%= adresse[i].nom %></div>
             <div class="text editable" value="" contentEditable="true"><%= carnet[i].prenom %></div>
             <div class="text editable" value="" contentEditable="true"><%= carnet[i].telephone %></div>
             <div class="text" value=""><%= carnet[i]._id %></div>
-            <i class="num fa fa-floppy" aria-hidden="true" onclick="verifEnreg(this)"></i>
+            <i class="num fa fa-floppy" aria-hidden="true" onclick="verifierEnregistrement(this)"></i>
             <i class="num fa fa-trash" aria-hidden="true" onclick="detruire(this)"></i>
 
           </div>
