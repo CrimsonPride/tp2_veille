@@ -11,6 +11,7 @@ app.use(bodyParser.json())  // pour traiter les données JSON
 
 /**************FONCTIONS**********/
 
+//Connexion à la base de donnée Mongo
 MongoClient.connect('mongodb://127.0.0.1:27017/carnet_6', (err, database) => {
   if (err) return console.log(err)
   db = database
@@ -19,7 +20,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/carnet_6', (err, database) => {
   })
 })
 
-
+//Appeler l'index.ejs pour l'affichage
 app.get('/', function (req, res) {
     var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
        if (err) return console.log(err)
@@ -29,58 +30,44 @@ app.get('/', function (req, res) {
 
     }) 
     
-})
+});
 
-app.get('/Afficher',  (req, res) => {
-   
-   console.log('la route  get / = ' + req.url)
-   res.sendFile(__dirname + "/public/html/forme.html")
-})
-
-
-app.post('/Ajouter',  (req, res) => {
-  db.collection('carnet_6').save(req.body, (err, result) => {
-      if (err) return console.log(err)
-      console.log('sauvegarder dans la BD')
-      res.redirect('/')
+//Ajouter un document
+app.post('/Ajouter',  (req, res, next) => {
+  db.collection('carnet_6').insertOne({
+    "nom" : req.body.ajouter.nom,
+    "prenom" : req.body.ajouter.prenom,
+    "telephone": req.body.ajouter.telephone 
+  }, (err, resultat) => {
+        if (err) return res.send(500, err)
+        var cursor = db.collection('carnet_6').find().toArray(function(err, resultat) {
+            if (err) return console.log(err)
+            console.log("err");
+        })
     })
-})
+});
 
-
-app.get('/Detruire/:_id',  (req, res) => {
-     var id = req.params._id
-    console.log(id)
-    db.collection('carnet_6').findOneAndDelete({"_id": ObjectID(req.params._id)}, (err, resultat) => {
-
-    if(err) return res.send(500,err)
-    var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
-       if (err) return console.log(err)
+//Détruire un document
+app.post('/Detruire/:_id',  (req, res) => {
+    db.collection('carnet_6').findOneAndDelete({
+        "_id": ObjectID(req.params._id)},(err, resultat) => {
     // renders index.ejs
     // affiche le contenu de la base de donnée
     res.redirect('/');
-    }) 
+    
   }) 
 })
 
-
-app.get('/Yolo',  (req, res) => {
-
-     var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
-       if (err) return console.log(err)
-    // renders index.ejs
-    // affiche le contenu de la base de donnée
-    console.log(req.url.slice(-1));
-    res.render('index1.ejs', {carnet: resultat, id:req.url.slice(-1)})
-    }) 
-})
-
-app.get('/Modifier/:_id',  (req, res) => {
-   var id = req.params._id
-    console.log();
-    db.collection('carnet_6').findAndModify({
-    query: {_id:ObjectID(req.body._id)},
-    update: {$set: {nom: req.body.nom, prenom: req.body.prenom, telephone: req.body.telephone}},
-    new: true
+//Modifier un document
+app.post('/Modifier',  (req, res,next) => {
+    db.collection('carnet_6').update({
+     _id:ObjectID(req.body._id)},
+     {
+        $set: {
+            nom: req.body.modifier.nom, 
+            prenom: req.body.modifier.prenom, 
+            telephone: req.body.modifier.telephone
+        }
     }, (err, resultat) => {
 
     if(err) return res.send(500,err)
@@ -93,37 +80,58 @@ app.get('/Modifier/:_id',  (req, res) => {
   }) 
 })
 
-app.get('/Ding',  (req, res) => {
-   var id = req.params._id
-    console.log();
-    db.collection('carnet_6').findAndModify({
-    query: {_id:ObjectID(req.body._id)},
-    update: {$set: {nom: req.body.nom, prenom: req.body.prenom, telephone: req.body.telephone}},
-    new: true
-    }, (err, resultat) => {
+//Triage des documents par nom lorsque l'on clique sur le th nom
+var sensNom = 1;
+app.get('/TNom',  (req, res, next) => {
+    var cursor =
+    db.collection('carnet_6').find().sort({ nom:sensNom }.toA, (err, resultat) => {
 
-    if(err) return res.send(500,err)
-    var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
-       if (err) return console.log(err)
-    // renders index.ejs
-    // affiche le contenu de la base de donnée
-    res.redirect('/');
-    }) 
-  }) 
-})
+if (err) return console.log(err)
+        res.render('index.ejs', {
+            carnet: resultat
+        })
+        sensNom = -sensNom;
+    })
+});  
 
-app.get('/TNom',  (req, res) => {
-    
-    
-    db.collection('carnet_6').find().sort({ nom: -1 }, (err, resultat) => {
+//Triage des documents par nom lorsque l'on clique sur le th nom
+var sensNom = 1;
+app.get('/TNom',  (req, res, next) => {
+    var cursor =
+    db.collection('carnet_6').find().sort({ nom:sensNom }.toA, (err, resultat) => {
 
-    if(err) return res.send(500,err)
-    var cursor = db.collection('carnet_6').find().toArray(function(err, resultat){
-       if (err) return console.log(err)
-    // renders index.ejs
-    // affiche le contenu de la base de donnée
-    res.redirect('/');
-    }) 
-  }) 
-})
-  
+if (err) return console.log(err)
+        res.render('index.ejs', {
+            carnet: resultat
+        })
+        sensNom = -sensNom;
+    })
+}); 
+
+//Triage des documents par nom lorsque l'on clique sur le th prenom
+var sensPrenom = 1;
+app.get('/TPrenom',  (req, res, next) => {
+    var cursor =
+    db.collection('carnet_6').find().sort({ prenom:sensPrenom }.toA, (err, resultat) => {
+
+if (err) return console.log(err)
+        res.render('index.ejs', {
+            carnet: resultat
+        })
+        sensPrenom = -sensPrenom;
+    })
+}); 
+
+//Triage des documents par nom lorsque l'on clique sur le th telephone
+var sensTel = 1;
+app.get('/TTel',  (req, res, next) => {
+    var cursor =
+    db.collection('carnet_6').find().sort({ telephone:sensTel }.toA, (err, resultat) => {
+
+if (err) return console.log(err)
+        res.render('index.ejs', {
+            carnet: resultat
+        })
+        sensTel = -sensTel;
+    })
+}); 
